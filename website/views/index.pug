@@ -1,0 +1,102 @@
+extends layout
+
+block content
+  .app-container
+    //- Header
+    header.header
+      h1 DHS WOW Interactive Map
+      p.subtitle Convicted Criminal Data Visualization
+    
+    //- Main content
+    .main-content
+      //- Left sidebar - Stats
+      aside.sidebar.stats-sidebar
+        h2 Statistics
+        
+        .stat-card
+          h3 Total Records
+          .stat-value= stats.totalRecords.toLocaleString()
+        
+        .stat-card
+          h3 Gender Distribution
+          .gender-chart
+            .gender-bar
+              .bar-fill.male(style=`width: ${(stats.totalMen / (stats.totalMen + stats.totalWomen) * 100).toFixed(1)}%`)
+              .bar-fill.female(style=`width: ${(stats.totalWomen / (stats.totalMen + stats.totalWomen) * 100).toFixed(1)}%`)
+            .gender-labels
+              span.male-label Men: #{stats.totalMen.toLocaleString()} (#{((stats.totalMen / (stats.totalMen + stats.totalWomen)) * 100).toFixed(1)}%)
+              span.female-label Women: #{stats.totalWomen.toLocaleString()} (#{((stats.totalWomen / (stats.totalMen + stats.totalWomen)) * 100).toFixed(1)}%)
+        
+        .stat-card
+          h3 Average Age
+          .stat-value= stats.avgAge
+        
+        .stat-card
+          h3 Race Distribution (AI Detected)
+          .race-chart
+            - var totalRace = stats.raceDistribution.reduce((sum, r) => sum + r[1], 0)
+            each race in stats.raceDistribution
+              - var pct = (race[1] / totalRace * 100).toFixed(1)
+              .race-bar-row
+                span.race-label= race[0]
+                .race-bar-container
+                  .race-bar-fill(style="width: " + pct + "%" data-race=race[0])
+                span.race-percent= pct + '%'
+        
+        .stat-card.scrollable
+          h3 Top Countries of Origin
+          ul.country-list
+            each country in stats.topCountries
+              li
+                span.country-name= country[0]
+                span.country-count= country[1].toLocaleString()
+        
+        .stat-card.scrollable
+          h3 Top Crime Categories
+          ul.category-stats-list
+            each cat in stats.topCategories
+              li
+                span.cat-name= cat[0]
+                span.cat-count= cat[1].toLocaleString()
+        
+        if stats.topGangs && stats.topGangs.length > 0
+          .stat-card.scrollable
+            h3 Gang Affiliations
+            ul.gang-list
+              each gang in stats.topGangs
+                li
+                  span.gang-name= gang[0]
+                  span.gang-count= gang[1].toLocaleString()
+      
+      //- Map container
+      .map-section
+        //- Filter controls
+        .filter-controls
+          label(for="category-filter") Filter by Crime Category:
+          select#category-filter
+            option(value="all") All Categories
+            each cat in categories
+              option(value=cat)= cat
+          span#result-count.result-count Loading...
+        
+        //- Map
+        #map
+      
+      //- Right sidebar - Selected location details
+      aside.sidebar.details-sidebar
+        h2 Location Details
+        #location-details
+          .placeholder Click a marker on the map to view details
+        
+        #person-list.person-list
+          //- Populated by JavaScript
+    
+    //- Modal for full person details
+    #person-modal.modal
+      .modal-content
+        span.close-modal &times;
+        #modal-body
+          //- Populated by JavaScript
+
+block scripts
+  script(src="/js/map.js")

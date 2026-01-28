@@ -1,0 +1,15 @@
+{
+  "name": "dhs-wow-viewer",
+  "version": "1.0.0",
+  "description": "Interactive map viewer for DHS WOW data",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "pug": "^3.0.2",
+    "csv-parse": "^5.5.0"
+  }
+}

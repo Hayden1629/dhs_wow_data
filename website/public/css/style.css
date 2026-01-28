@@ -1,0 +1,588 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #1a365d;
+    --primary-light: #2c5282;
+    --accent-color: #ed8936;
+    --background: #f7fafc;
+    --card-bg: #ffffff;
+    --text-primary: #2d3748;
+    --text-secondary: #718096;
+    --border-color: #e2e8f0;
+    --success-color: #48bb78;
+    --danger-color: #f56565;
+    --male-color: #4299e1;
+    --female-color: #ed64a6;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background-color: var(--background);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Header */
+.header {
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    padding: 1rem 2rem;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.header .subtitle {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Main content */
+.main-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Sidebars */
+.sidebar {
+    width: 300px;
+    background: var(--card-bg);
+    padding: 1rem;
+    overflow-y: auto;
+    border-right: 1px solid var(--border-color);
+}
+
+.sidebar h2 {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--accent-color);
+}
+
+.details-sidebar {
+    border-right: none;
+    border-left: 1px solid var(--border-color);
+}
+
+/* Stat cards */
+.stat-card {
+    background: var(--background);
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.stat-card h3 {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card .stat-value {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.stat-card.scrollable {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+/* Gender chart */
+.gender-chart {
+    margin-top: 0.5rem;
+}
+
+.gender-bar {
+    display: flex;
+    height: 24px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--border-color);
+}
+
+.bar-fill {
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+.bar-fill.male {
+    background: var(--male-color);
+}
+
+.bar-fill.female {
+    background: var(--female-color);
+}
+
+.gender-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+}
+
+.male-label {
+    color: var(--male-color);
+}
+
+.female-label {
+    color: var(--female-color);
+}
+
+/* Race chart */
+.race-chart {
+    margin-top: 0.5rem;
+}
+
+.race-bar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.4rem;
+    font-size: 0.8rem;
+}
+
+.race-label {
+    width: 90px;
+    text-transform: capitalize;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.race-bar-container {
+    flex: 1;
+    height: 16px;
+    background: var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 0 0.5rem;
+}
+
+.race-bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    transition: width 0.3s ease;
+}
+
+.race-bar-fill[data-race="white"] { background: #9F7AEA; }
+.race-bar-fill[data-race="black"] { background: #4A5568; }
+.race-bar-fill[data-race="asian"] { background: #ED8936; }
+.race-bar-fill[data-race="latino hispanic"] { background: #48BB78; }
+.race-bar-fill[data-race="middle eastern"] { background: #F6AD55; }
+.race-bar-fill[data-race="indian"] { background: #FC8181; }
+
+.race-percent {
+    width: 45px;
+    text-align: right;
+    color: var(--text-primary);
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+/* Lists */
+.country-list, .category-stats-list, .gang-list {
+    list-style: none;
+}
+
+.country-list li, .category-stats-list li, .gang-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.85rem;
+}
+
+.country-list li:last-child, .category-stats-list li:last-child, .gang-list li:last-child {
+    border-bottom: none;
+}
+
+.country-count, .cat-count, .gang-count {
+    background: var(--primary-light);
+    color: white;
+    padding: 0.1rem 0.5rem;
+    border-radius: 10px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+/* Map section */
+.map-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.filter-controls {
+    background: var(--card-bg);
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.filter-controls label {
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.filter-controls select {
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    background: white;
+    cursor: pointer;
+    min-width: 200px;
+}
+
+.filter-controls select:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+}
+
+.result-count {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-left: auto;
+}
+
+#map {
+    flex: 1;
+    min-height: 400px;
+}
+
+/* Details sidebar */
+.placeholder {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 2rem 1rem;
+    font-style: italic;
+}
+
+#location-details {
+    margin-bottom: 1rem;
+}
+
+.location-header {
+    background: var(--primary-color);
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.location-header h3 {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+}
+
+.location-header .count {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
+/* Person list */
+.person-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.person-card {
+    background: var(--background);
+    border-radius: 8px;
+    padding: 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.person-card:hover {
+    border-color: var(--primary-light);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.person-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.person-thumbnail {
+    width: 50px;
+    height: 50px;
+    border-radius: 6px;
+    object-fit: cover;
+    background: var(--border-color);
+}
+
+.person-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.person-name {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.person-country {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.person-crimes {
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+}
+
+.crime-tag {
+    display: inline-block;
+    background: var(--accent-color);
+    color: white;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    margin: 0.1rem;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    border-radius: 12px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-secondary);
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--background);
+    transition: all 0.2s;
+}
+
+.close-modal:hover {
+    background: var(--danger-color);
+    color: white;
+}
+
+#modal-body {
+    padding: 1.5rem;
+}
+
+.modal-header {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.modal-mugshot {
+    width: 150px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: var(--border-color);
+}
+
+.modal-info h2 {
+    font-size: 1.5rem;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.modal-meta {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.modal-meta p {
+    margin: 0.25rem 0;
+}
+
+.modal-meta strong {
+    color: var(--text-primary);
+}
+
+.modal-section {
+    margin-top: 1.5rem;
+}
+
+.modal-section h3 {
+    font-size: 1rem;
+    color: var(--primary-color);
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.convictions-list {
+    list-style: none;
+}
+
+.convictions-list li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.9rem;
+}
+
+.convictions-list li:last-child {
+    border-bottom: none;
+}
+
+.categories-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.category-badge {
+    background: var(--primary-light);
+    color: white;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.gang-badge {
+    background: var(--danger-color);
+    color: white;
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-top: 0.5rem;
+}
+
+/* Leaflet custom styles */
+.leaflet-popup-content {
+    margin: 0;
+    min-width: 200px;
+}
+
+.popup-content {
+    padding: 0.5rem;
+}
+
+.popup-content h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.popup-count {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.marker-cluster {
+    background-color: rgba(26, 54, 93, 0.6);
+}
+
+.marker-cluster div {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .sidebar {
+        width: 250px;
+    }
+}
+
+@media (max-width: 900px) {
+    .main-content {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        width: 100%;
+        max-height: 300px;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .details-sidebar {
+        border-left: none;
+        border-top: 1px solid var(--border-color);
+    }
+}
